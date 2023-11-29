@@ -23,17 +23,17 @@ def load_model():
 def get_embedding(df, embeddings_path='embeddings.npy'):
     
     model = load_model()
-    df = get_data()
+    # df = get_data() already given in the main
 
     # Check if the file exists
     if not os.path.exists(embeddings_path):
         # If the file does not exist, call the get_embedding method
         logging.info("Creating CSV from JSON file.")
         corpus_embeddings = model.encode(df["abstract"], show_progress_bar=True)
-        np.save("./embeddings.npy", corpus_embeddings, allow_pickle=True)
+        np.save(embeddings_path, corpus_embeddings, allow_pickle=True)
     else:
         logging.info("The file already exists.")
-        corpus_embeddings = np.load("./embeddings.npy", allow_pickle=True)
+        corpus_embeddings = np.load(embeddings_path, allow_pickle=True)
 
     logging.debug(corpus_embeddings.shape)
     
@@ -41,6 +41,7 @@ def get_embedding(df, embeddings_path='embeddings.npy'):
 
 def clustering(corpus_embeddings, num_clusters):
 
+    logging.info("Start KMeans")
     clustering_model = KMeans(n_clusters=num_clusters)
     clustering_model.fit(corpus_embeddings)
     cluster_assignment = clustering_model.labels_

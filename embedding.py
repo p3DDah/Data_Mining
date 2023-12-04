@@ -20,7 +20,7 @@ def load_model():
     model = SentenceTransformer("all-MiniLM-L6-v2")
     return model
 
-def get_embedding(df, embeddings_path='embeddings.npy'):
+def get_embedding(df, embeddings_path='embeddings.npy', mode="abstract"):
     
     model = load_model()
     # df = get_data() already given in the main
@@ -29,7 +29,10 @@ def get_embedding(df, embeddings_path='embeddings.npy'):
     if not os.path.exists(embeddings_path):
         # If the file does not exist, call the get_embedding method
         logging.info("Creating CSV from JSON file.")
-        corpus_embeddings = model.encode(df["abstract"], show_progress_bar=True)
+        if mode == "abstract":
+            corpus_embeddings = model.encode(df["abstract"], show_progress_bar=True)
+        else:
+            corpus_embeddings = model.encode(df["categories"], show_progress_bar=True)
         np.save(embeddings_path, corpus_embeddings, allow_pickle=True)
     else:
         logging.info("The file already exists.")

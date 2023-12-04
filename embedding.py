@@ -45,7 +45,7 @@ def get_embedding(df, embeddings_path='embeddings.npy', mode="abstract"):
 def clustering(corpus_embeddings, num_clusters):
 
     logging.info("Start KMeans")
-    clustering_model = KMeans(n_clusters=num_clusters)
+    clustering_model = KMeans(n_clusters=num_clusters, verbose = True)
     clustering_model.fit(corpus_embeddings)
     cluster_assignment = clustering_model.labels_
 

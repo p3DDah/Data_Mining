@@ -60,11 +60,11 @@ def clustering(corpus_embeddings, num_clusters):
     #clustering_model = KMeans(n_clusters=num_clusters)
     #clustering_model.fit(corpus_embeddings)
     #cluster_assignment = clustering_model.labels_
-    for i in range(10):
+    for i in range(5):
         clustering_model = KMeans()
-        visualizer = KElbowVisualizer(clustering_model, k=(10+i*5, 15+i*5+1)) # type: ignore
+        visualizer = KElbowVisualizer(clustering_model, k=(25+i*5, 30+i*5+1)) # type: ignore
         visualizer.fit(corpus_embeddings)
-        visualizer.show(outpath=f"range_{10+i*5}_to_{15+i*5}.png")
+        visualizer.show(outpath=f"range_{25+i*5}_to_{30+i*5}.png")
 
     return #cluster_assignment
 

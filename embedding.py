@@ -64,7 +64,7 @@ def clustering(corpus_embeddings, num_clusters):
         clustering_model = KMeans()
         visualizer = KElbowVisualizer(clustering_model, k=(35+i*5, 40+i*5+1)) # type: ignore
         visualizer.fit(corpus_embeddings)
-        visualizer.show(outpath=f"range_{25+i*5}_to_{30+i*5}.png")
+        visualizer.show(outpath=f"range_{35+i*5}_to_{40+i*5}.png")
 
     return #cluster_assignment
 
